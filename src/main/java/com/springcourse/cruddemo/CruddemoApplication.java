@@ -23,23 +23,31 @@ public class CruddemoApplication {
 			// findInsructorById(appDAO);
 			// deleteInstructorById(appDAO);
 			// updateInstructor(appDAO);
-			findInstructorDetailById(appDAO);
+			// findInstructorDetailById(appDAO);
+			deleteInstructorDetailById(appDAO);
 		};
 	};
+
+	private void deleteInstructorDetailById(AppDAO appDAO) {
+		appDAO.deleteInstructorDetailById(5);
+		System.out.println("Deleted");
+
+	}
 
 	private void findInstructorDetailById(AppDAO appDAO) {
 		InstructorDetail instructorDetail = appDAO.findInstructorDetailById(1);
 		System.err.println();
 		System.out.println(instructorDetail);
 		System.err.println();
+		System.out.println(instructorDetail.getInstructor());
 	}
 
 	private void createInstructor(AppDAO appDAO) {
 		Instructor instructor = new Instructor("Chad2", "Darby2", "cf2@gmail.com");
 
-		InstructorDetail instructiorDetail = new InstructorDetail("http://www.luv2code.com/youtube", "Luv 2 code!!!");
+		InstructorDetail instructorDetail = new InstructorDetail("http://www.luv2code.com/youtube", "Luv 2 code!!!");
 
-		instructor.setInstructiorDetail(instructiorDetail);
+		instructor.setInstructorDetail(instructorDetail);
 
 		appDAO.save(instructor);
 
@@ -58,23 +66,23 @@ public class CruddemoApplication {
 		System.out.println("Deleted");
 	}
 
-	// private void updateInstructor(AppDAO appDAO) {
-	// // Retrieve the instructor by id (assuming id is 1)
-	// int instructorId = 1;
-	// Instructor instructor = appDAO.findById(instructorId);
+	private void updateInstructor(AppDAO appDAO) {
+		// Retrieve the instructor by id (assuming id is 1)
+		int instructorId = 2;
+		Instructor instructor = appDAO.findById(instructorId);
+		System.out.println("Instructor: " + instructor);
+		// Check if instructor exists
+		if (instructor != null) {
+			// Update the instructor's details
+			instructor.setFirstName("2UpdatedFirstName");
+			instructor.setLastName("2UpdatedLastName");
+			instructor.setEmail("updatedemail@example.com");
 
-	// // Check if instructor exists
-	// if (instructor != null) {
-	// // Update the instructor's details
-	// instructor.setFirstName("UpdatedFirstName");
-	// instructor.setLastName("UpdatedLastName");
-	// instructor.setEmail("updatedemail@example.com");
-
-	// // Save the updated instructor
-	// appDAO.update(instructor);
-	// } else {
-	// System.out.println("Instructor with id " + instructorId + " not found.");
-	// }
-	// }
+			// Save the updated instructor
+			appDAO.update(instructor);
+		} else {
+			System.out.println("Instructor with id " + instructorId + " not found.");
+		}
+	}
 
 }
