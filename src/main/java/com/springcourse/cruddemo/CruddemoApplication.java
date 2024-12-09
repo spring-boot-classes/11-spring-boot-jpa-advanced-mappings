@@ -19,7 +19,7 @@ public class CruddemoApplication {
 
 	@Bean
 	public CommandLineRunner commandLineRunner(AppDAO appDAO) {
-		return runner -> {
+		return _ -> {
 			// createInstructor(appDAO);
 			// findInsructorById(appDAO);
 			// deleteInstructorById(appDAO);

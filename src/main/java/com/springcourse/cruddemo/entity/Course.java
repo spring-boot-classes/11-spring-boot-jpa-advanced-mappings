@@ -1,7 +1,5 @@
 package com.springcourse.cruddemo.entity;
 
-import org.hibernate.annotations.ManyToAny;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
