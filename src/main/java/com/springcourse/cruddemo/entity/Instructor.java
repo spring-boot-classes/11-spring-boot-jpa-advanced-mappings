@@ -1,30 +1,26 @@
 package com.springcourse.cruddemo.entity;
 
+import jakarta.persistence.*;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "instructor")
 public class Instructor {
 
     // annotate the class as an entity and map to db table
+
     // define the fields
+
     // annotate the fields with db column names
-    // ** set up relationship between instructor and instructor_detail
+
+    // ** set up mapping to InstructorDetail entity
+
     // create constructors
+
     // generate getter/setter methods
+
     // generate toString() method
 
     @Id
@@ -41,15 +37,16 @@ public class Instructor {
     @Column(name = "email")
     private String email;
 
-    @OneToMany(mappedBy = "instructor", cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,
-            CascadeType.REFRESH }, fetch = FetchType.LAZY)
-    private List<Course> courses;
-
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "instructor_detail_id")
     private InstructorDetail instructorDetail;
 
+    @OneToMany(mappedBy = "instructor", fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE,
+            CascadeType.DETACH, CascadeType.REFRESH })
+    private List<Course> courses;
+
     public Instructor() {
+
     }
 
     public Instructor(String firstName, String lastName, String email) {
@@ -100,8 +97,13 @@ public class Instructor {
 
     @Override
     public String toString() {
-        return "Instuctor [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
-                + ", instructorDetail=" + instructorDetail + "]";
+        return "Instructor{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", instructorDetail=" + instructorDetail +
+                '}';
     }
 
     public List<Course> getCourses() {
@@ -112,13 +114,16 @@ public class Instructor {
         this.courses = courses;
     }
 
-    public void addCourse(Course course) {
+    // add convenience methods for bi-directional relationship
+
+    public void add(Course tempCourse) {
+
         if (courses == null) {
             courses = new ArrayList<>();
         }
-        courses.add(course);
 
-        course.setInstructor(this);
+        courses.add(tempCourse);
+
+        tempCourse.setInstructor(this);
     }
-
 }
