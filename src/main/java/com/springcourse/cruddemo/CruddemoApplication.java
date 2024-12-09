@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 
 import com.springcourse.cruddemo.dao.AppDAO;
 import com.springcourse.cruddemo.entity.InstructorDetail;
+import com.springcourse.cruddemo.entity.Course;
 import com.springcourse.cruddemo.entity.Instructor;
 
 @SpringBootApplication
@@ -24,9 +25,34 @@ public class CruddemoApplication {
 			// deleteInstructorById(appDAO);
 			// updateInstructor(appDAO);
 			// findInstructorDetailById(appDAO);
-			deleteInstructorDetailById(appDAO);
+			// deleteInstructorDetailById(appDAO);
+			// createInstructorWithCourses(appDAO);
+			findInstructorWithCourses(appDAO);
 		};
 	};
+
+	private void findInstructorWithCourses(AppDAO appDAO) {
+		int instructorId = 1;
+		Instructor instructor = appDAO.findById(instructorId);
+		System.out.println("Instructor: " + instructor);
+		System.out.println("Courses: " + instructor.getCourses());
+
+	}
+
+	private void createInstructorWithCourses(AppDAO appDAO) {
+		Instructor instructor = new Instructor("Chad3", "Darby3", "ffaee@gmail.com");
+
+		InstructorDetail instructorDetail = new InstructorDetail("http://www.luv2code.com/youtube", "Luv 2 code!!!");
+		instructor.setInstructorDetail(instructorDetail);
+		Course course1 = new Course("Spring Boot for Beginners");
+		Course course2 = new Course("Spring Framework for Beginners");
+		instructor.addCourse(course1);
+		instructor.addCourse(course2);
+		appDAO.save(instructor);
+
+		System.out.println("Instructor saved with courses");
+
+	}
 
 	private void deleteInstructorDetailById(AppDAO appDAO) {
 		appDAO.deleteInstructorDetailById(5);
