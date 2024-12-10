@@ -10,6 +10,7 @@ import com.springcourse.cruddemo.entity.Course;
 import com.springcourse.cruddemo.entity.Instructor;
 import com.springcourse.cruddemo.entity.InstructorDetail;
 import com.springcourse.cruddemo.entity.Review;
+import com.springcourse.cruddemo.entity.Student;
 
 @Service
 public class InstructorService {
@@ -242,4 +243,29 @@ public class InstructorService {
 
         System.out.println("Done!");
     }
+
+    public void createCourseAndStudents(String title) {
+
+        // create a course
+        Course tempCourse = new Course(title);
+
+        // save the course ... and leverage the cascade all :-)
+        System.out.println("Saving course: " + tempCourse);
+
+        // create students
+        Student tempStudent1 = new Student("John", "Doe", "ss@gm.com");
+        Student tempStudent2 = new Student("Mary", "Public", "ww@ff.com");
+
+        // add students to the course
+        tempCourse.addStudent(tempStudent1);
+        tempCourse.addStudent(tempStudent2);
+
+        // save the students
+        System.out.println("Saving students ...");
+        appDAO.save(tempCourse);
+
+        System.out.println("Done!");
+
+    }
+
 }

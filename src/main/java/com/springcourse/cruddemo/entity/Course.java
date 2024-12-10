@@ -9,16 +9,6 @@ import jakarta.persistence.*;
 @Table(name = "course")
 public class Course {
 
-    // define our fields
-
-    // define constructors
-
-    // define getter setters
-
-    // define toString
-
-    // annotate fields
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -35,6 +25,11 @@ public class Course {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "course_id")
     private List<Review> reviews;
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE,
+            CascadeType.DETACH, CascadeType.REFRESH })
+    @JoinTable(name = "course_student", joinColumns = @JoinColumn(name = "course_id"), inverseJoinColumns = @JoinColumn(name = "student_id"))
+    private List<Student> students;
 
     public List<Review> getReviews() {
         return reviews;
@@ -90,5 +85,21 @@ public class Course {
         }
 
         reviews.add(review);
+    }
+
+    public List<Student> getStudents() {
+        return students;
+    }
+
+    public void setStudents(List<Student> students) {
+        this.students = students;
+    }
+
+    public void addStudent(Student student) {
+        if (students == null) {
+            students = new ArrayList<>();
+        }
+
+        students.add(student);
     }
 }

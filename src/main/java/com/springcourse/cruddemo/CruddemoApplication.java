@@ -31,6 +31,8 @@ public class CruddemoApplication {
 
 			// instructorService.deleteCourseAndReviews(10);
 
+			instructorService.createCourseAndStudents("Java Masterclass");
+
 		};
 	}
 
