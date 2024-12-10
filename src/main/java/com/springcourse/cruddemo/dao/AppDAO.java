@@ -5,6 +5,7 @@ import java.util.List;
 import com.springcourse.cruddemo.entity.Course;
 import com.springcourse.cruddemo.entity.Instructor;
 import com.springcourse.cruddemo.entity.InstructorDetail;
+import com.springcourse.cruddemo.entity.Student;
 
 public interface AppDAO {
     void save(Instructor instructor);
@@ -33,4 +34,11 @@ public interface AppDAO {
 
     Course findCourseAndReviewsByCourseId(int id);
 
+    Course findCourseAndStudentsByCourseId(int id);
+
+    Student findStudentAndCoursesByStudentId(int id);
+
+    void update(Student student);
+
+    void deleteStudentById(int id);
 }

@@ -268,4 +268,57 @@ public class InstructorService {
 
     }
 
+    public void findCourseAndStudentsByCourseId(int theId) {
+
+        Course tempCourse = appDAO.findCourseAndStudentsByCourseId(theId);
+
+        System.out.println("tempCourse: " + tempCourse);
+        System.out.println("Students: " + tempCourse.getStudents());
+
+        System.out.println("Done!");
+    }
+
+    public void findStudentAndCoursesByStudentId(int theId) {
+
+        Student tempStudent = appDAO.findStudentAndCoursesByStudentId(theId);
+
+        System.out.println("tempStudent: " + tempStudent);
+        System.out.println("Courses: " + tempStudent.getCourses());
+
+        System.out.println("Done!");
+    }
+
+    public void addMoreCoursesToStudent(int studentId, int[] courseIds) {
+        System.out.println("Adding more courses to student...");
+        System.out.println("Student id: " + studentId);
+        System.out.println("Course ids: ");
+        for (int courseId : courseIds) {
+            System.out.println(courseId);
+        }
+
+        // get the student from db
+        Student tempStudent = appDAO.findStudentAndCoursesByStudentId(studentId);
+
+        // add courses to student
+        for (int courseId : courseIds) {
+            Course tempCourse = appDAO.findCourseById(courseId);
+            tempStudent.addCourse(tempCourse);
+        }
+        System.out.println("Courses: " + tempStudent.getCourses());
+        // save the student
+        appDAO.update(tempStudent);
+
+        System.out.println("Done!");
+
+    }
+
+    public void deleteStudent(int theId) {
+
+        System.out.println("Deleting student id: " + theId);
+
+        appDAO.deleteStudentById(theId);
+
+        System.out.println("Done!");
+    }
+
 }

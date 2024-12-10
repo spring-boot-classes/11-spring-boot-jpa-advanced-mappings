@@ -5,8 +5,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import com.springcourse.cruddemo.entity.Course;
-import com.springcourse.cruddemo.entity.Instructor;
 import com.springcourse.cruddemo.service.InstructorService;
 
 @SpringBootApplication
@@ -31,8 +29,14 @@ public class CruddemoApplication {
 
 			// instructorService.deleteCourseAndReviews(10);
 
-			instructorService.createCourseAndStudents("Java Masterclass");
+			// instructorService.createCourseAndStudents("Java Masterclass");
+			// instructorService.findCourseAndStudentsByCourseId(14);
+			// instructorService.findStudentAndCoursesByStudentId(1);
+			// instructorService.addMoreCoursesToStudent(1, new int[]{15, 16});
 
+			// instructorService.deleteCourse(15);
+			instructorService.deleteStudent(1);
+  
 		};
 	}
 
